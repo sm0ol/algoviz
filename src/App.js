@@ -1,11 +1,21 @@
 import React from 'react';
 import logo from './logo.svg';
+import Navbar from './components/navbar';
 import './App.css';
 
 function App() {
+
+  var boxArr = [1,2,3];
+
   return (
     <div className="App">
-      <header className="App-header">
+      <Navbar />
+      <div className="algo-viz-content">
+        {/* BODY */}
+
+
+      </div>
+      {/* <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
           Edit <code>src/App.js</code> and save to reload.
@@ -18,7 +28,7 @@ function App() {
         >
           Learn React
         </a>
-      </header>
+      </header> */}
     </div>
   );
 }
