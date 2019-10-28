@@ -30,11 +30,6 @@ class App extends React.Component {
     this.setState({
       columnArr: cols
     }, () => console.log('Updated columnArr: ', this.state.columnArr));
-
-    // this.state.columnArr[i].boxes = boxAmount;
-    // this.setState({
-    //   columnArr: this.state.columnArr
-    // }, () => console.log('Updated boxArr: ', this.state.boxArr));
   }
 
   handleAddColumn(columnArr) {
