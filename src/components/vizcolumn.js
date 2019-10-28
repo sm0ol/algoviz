@@ -19,6 +19,7 @@ class VizColumn extends React.Component {
         this.setState({
             boxArr: this.state.boxArr
         });
+        this.props.onAddBox(this.props.index, this.state.boxArr.length);
     }
 
     subtractColumnBox(){

@@ -10,18 +10,31 @@ class App extends React.Component {
     super(props);
 
     this.state = {
-      boxArr: [],
+      // boxArr: [],
       columnArr: []
     }
 
-    this.handleAddBox = this.handleAddBox.bind(this);
+    this.onAddBox = this.onAddBox.bind(this);
     this.handleAddColumn = this.handleAddColumn.bind(this);
+    this.bubbleSort = this.bubbleSort.bind(this);
   }
 
-  handleAddBox(boxArr) {
+  onAddBox(colIndex, boxAmount) {
+    let cols = [...this.state.columnArr];
+    let colItem = {...cols[colIndex]};
+
+    colItem.boxes = boxAmount;
+
+    cols[colIndex] = colItem;
+
     this.setState({
-      boxArr: boxArr
-    }, () => console.log('Updated boxArr: ', this.state.boxArr));
+      columnArr: cols
+    }, () => console.log('Updated columnArr: ', this.state.columnArr));
+
+    // this.state.columnArr[i].boxes = boxAmount;
+    // this.setState({
+    //   columnArr: this.state.columnArr
+    // }, () => console.log('Updated boxArr: ', this.state.boxArr));
   }
 
   handleAddColumn(columnArr) {
@@ -30,15 +43,51 @@ class App extends React.Component {
     }, () => console.log('Updated columnArr: ', this.state.columnArr));
   }
 
+  bubbleSort(){
+    let sorted = false;
+    // for(var i = 0; i < this.state.columnArr.length; i++){
+    //   console.log(this.state.columnArr[i]);
+    // }
+    for(var i = 1; i < this.state.columnArr.length; i++){
+      console.log(this.state.columnArr[i]);
+      let firstItem = this.state.columnArr[i];
+      let secondItem = this.state.columnArr[i - 1];
+      // let secondItem = (this.state.columnArr[i - 1]) ? this.state.columnArr[i - 1] : break;
+
+      if(firstItem.boxes < secondItem.boxes){
+        let temp = firstItem;
+        firstItem = secondItem;
+        secondItem = temp;
+        sorted = false;
+      }
+    }
+    // while(!sorted){
+    //   sorted = true;
+    //   for(var i = 1; i < this.state.columnArr.length; i++){
+    //     console.log(this.state.columnArr[i]);
+    //     let firstItem = this.state.columnArr[i];
+    //     let secondItem = this.state.columnArr[i - 1];
+    //     // let secondItem = (this.state.columnArr[i - 1]) ? this.state.columnArr[i - 1] : break;
+
+    //     if(firstItem.boxes < secondItem.boxes){
+    //       let temp = firstItem;
+    //       firstItem = secondItem;
+    //       secondItem = temp;
+    //       sorted = false;
+    //     }
+    //   }
+    // }
+  }
+
   render () {
     
     return (
       <div className="App">
-        <Navbar updateColumnArr={this.handleAddColumn} updateBoxArr={this.handleAddBox} boxArr={this.state.boxArr} columnArr={this.state.columnArr}/>
+        <Navbar updateColumnArr={this.handleAddColumn} updateBoxArr={this.handleAddBox} boxArr={this.state.boxArr} columnArr={this.state.columnArr} bubbleSort={this.bubbleSort}/>
         <div className="algo-viz-content">
-          {this.state.columnArr.map(col => {
+          {this.state.columnArr.map((col, index) => {
             return (
-              <VizColumn key={col} column={this.state.boxArr[col]}/>
+              <VizColumn key={index} index={index} column={this.state.columnArr[index]} onAddBox={this.onAddBox}/>
             );
           })}
         </div>

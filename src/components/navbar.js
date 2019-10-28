@@ -9,6 +9,7 @@ class Navbar extends React.Component {
         this.subtractBox = this.subtractBox.bind(this);
         this.addColumn = this.addColumn.bind(this);
         this.subtractColumn = this.subtractColumn.bind(this);
+        this.bubbleSort = this.bubbleSort.bind(this);
     }
 
     addBox(e){
@@ -22,7 +23,7 @@ class Navbar extends React.Component {
     }
 
     addColumn(e){
-        this.props.columnArr.push(this.props.columnArr.length + 1);
+        this.props.columnArr.push({boxes: [1]});
         this.props.updateColumnArr(this.props.columnArr);
     }
 
@@ -31,12 +32,17 @@ class Navbar extends React.Component {
         this.props.updateColumnArr(this.props.columnArr);
     }
 
+    bubbleSort(e){
+        this.props.bubbleSort();
+    }
+
     render () {
         return (
             <div className="algo-navbar">
                 <button className="algo-navbar-button">Home</button>
-                <button className="algo-navbar-button" onClick={this.addColumn}>Add column</button>
-                <button className="algo-navbar-button" onClick={this.subtractColumn}>Subtract column</button>
+                <button className="algo-navbar-button" onClick={this.addColumn}>Add Column</button>
+                <button className="algo-navbar-button" onClick={this.subtractColumn}>Subtract Column</button>
+                <button className="algo-navbar-button" onClick={this.bubbleSort}>Bubble Sort</button>
             </div>
         )
     }
