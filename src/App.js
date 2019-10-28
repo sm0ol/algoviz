@@ -1,69 +1,50 @@
 import React from 'react';
 import logo from './logo.svg';
 import Navbar from './components/navbar';
+import VizBox from './components/vizbox';
+import VizColumn from './components/vizcolumn';
 import './App.css';
 
 class App extends React.Component {
-  constructor (props) {
+  constructor(props){
     super(props);
 
+    this.state = {
+      boxArr: [],
+      columnArr: []
+    }
+
+    this.handleAddBox = this.handleAddBox.bind(this);
+    this.handleAddColumn = this.handleAddColumn.bind(this);
+  }
+
+  handleAddBox(boxArr) {
+    this.setState({
+      boxArr: boxArr
+    }, () => console.log('Updated boxArr: ', this.state.boxArr));
+  }
+
+  handleAddColumn(columnArr) {
+    this.setState({
+      columnArr: columnArr
+    }, () => console.log('Updated columnArr: ', this.state.columnArr));
   }
 
   render () {
+    
     return (
       <div className="App">
-        <Navbar />
+        <Navbar updateColumnArr={this.handleAddColumn} updateBoxArr={this.handleAddBox} boxArr={this.state.boxArr} columnArr={this.state.columnArr}/>
         <div className="algo-viz-content">
-          {/* BODY */}
-
-
+          {this.state.columnArr.map(col => {
+            return (
+              <VizColumn key={col} column={this.state.boxArr[col]}/>
+            );
+          })}
         </div>
-        {/* <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header> */}
       </div>
     );
   }
 }
-// function App() {
-
-//   var boxArr = [1,2,3];
-
-//   return (
-//     <div className="App">
-//       <Navbar />
-//       <div className="algo-viz-content">
-//         {/* BODY */}
-
-
-//       </div>
-//       {/* <header className="App-header">
-//         <img src={logo} className="App-logo" alt="logo" />
-//         <p>
-//           Edit <code>src/App.js</code> and save to reload.
-//         </p>
-//         <a
-//           className="App-link"
-//           href="https://reactjs.org"
-//           target="_blank"
-//           rel="noopener noreferrer"
-//         >
-//           Learn React
-//         </a>
-//       </header> */}
-//     </div>
-//   );
-// }
 
 export default App;

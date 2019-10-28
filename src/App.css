@@ -1,5 +1,6 @@
 .App {
   text-align: center;
+  overflow: auto;
 }
 
 .App-logo {
@@ -51,8 +52,48 @@
 .algo-viz-content { 
   height: 100vh;
   background-color: #6e9196;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.algo-viz-column-container {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 5px;
+}
+
+.algo-viz-column {
+  width: 50px;
+  margin: 5px;
+  border-bottom: 1px solid black;
+  display: flex;
+  flex-direction: column;
+}
+
+.algo-column-button {
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.algo-viz-square {
+  height: 40px;
+  width: 40px;
+  margin: 5px;
+  border: 1px solid black;
+  background-color: #6e9196;
+  animation: glowingButton 2000ms normal;
 }
 
 .App-link {
   color: #09d3ac;
+}
+
+@keyframes glowingButton {
+  0% { box-shadow: 0 0 -5px white; }
+  40% { box-shadow: 0 0 10px white; }
+  60% { box-shadow: 0 0 10px white; }
+  100% { box-shadow: 0 0 -5px white; }
 }
