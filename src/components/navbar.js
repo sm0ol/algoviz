@@ -10,6 +10,7 @@ class Navbar extends React.Component {
         this.addColumn = this.addColumn.bind(this);
         this.subtractColumn = this.subtractColumn.bind(this);
         this.bubbleSort = this.bubbleSort.bind(this);
+        this.clearContent = this.clearContent.bind(this);
     }
 
     addBox(e){
@@ -36,10 +37,14 @@ class Navbar extends React.Component {
         this.props.bubbleSort();
     }
 
+    clearContent(){
+        this.props.clearContent();
+    }
+
     render () {
         return (
             <div className="algo-navbar">
-                <button className="algo-navbar-button">Home</button>
+                <button className="algo-navbar-button" onClick={this.clearContent}>Clear</button>
                 <button className="algo-navbar-button" onClick={this.addColumn}>Add Column</button>
                 <button className="algo-navbar-button" onClick={this.subtractColumn}>Subtract Column</button>
                 <button className="algo-navbar-button" onClick={this.bubbleSort}>Bubble Sort</button>

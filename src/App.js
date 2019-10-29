@@ -1,9 +1,12 @@
 import React from 'react';
-import logo from './logo.svg';
 import Navbar from './components/navbar';
-import VizBox from './components/vizbox';
 import VizColumn from './components/vizcolumn';
 import './App.css';
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faArrowLeft, faArrowRight } from '@fortawesome/free-solid-svg-icons'
+
+library.add(faArrowLeft, faArrowRight);
 
 class App extends React.Component {
   constructor(props){
@@ -14,10 +17,18 @@ class App extends React.Component {
       sortedColumnArr: []
     }
 
+    this.history = [];
+    this.historyTracker = 0;
+
     this.onAddBox = this.onAddBox.bind(this);
     this.handleAddColumn = this.handleAddColumn.bind(this);
     this.bubbleSort = this.bubbleSort.bind(this);
     this.switchColumns = this.switchColumns.bind(this);
+    this.incrementHistory = this.incrementHistory.bind(this);
+    this.decrementHistory = this.decrementHistory.bind(this);
+    this.clearContent = this.clearContent.bind(this);
+    this.goToStart = this.goToStart.bind(this);
+    this.goToEnd = this.goToEnd.bind(this);
   }
 
   onAddBox(colIndex, boxAmount) {
@@ -42,19 +53,23 @@ class App extends React.Component {
   bubbleSort(){
     let cols = [...this.state.columnArr];
     let len = cols.length;
+    this.history = [];
+    this.history.push([...cols]);
     for(let i = 0; i < len - 1; i++){
       for(let j = 0; j < len - 1; j++){
         if(cols[j].boxes.length > cols[j + 1].boxes.length) {
           let tmp = cols[j];
           cols[j] = cols[j + 1];
           cols[j + 1] = tmp;
+          this.history.push([...cols]);
         }
       }
     }
 
+    this.historyTracker = this.history.length - 1;
     this.setState({
-      sortedColumnArr: cols
-    }, () => console.log(this.state));
+      sortedColumnArr: [...cols]
+    });
   }
 
   switchColumns(col1, col2){
@@ -62,7 +77,7 @@ class App extends React.Component {
     let temp1 = cols[col1];
     let temp2 = cols[col2];
     let colHolder = temp1;
-
+    
     temp1 = temp2;
     temp2 = colHolder;
 
@@ -74,11 +89,48 @@ class App extends React.Component {
     });
   }
 
+  incrementHistory(){
+    this.historyTracker++;
+    this.setState({
+      sortedColumnArr: this.history[this.historyTracker]
+    });
+  }
+
+  goToEnd(){
+    this.historyTracker = this.history.length - 1;
+    this.setState({
+      sortedColumnArr: this.history[this.historyTracker]
+    });
+  }
+
+  decrementHistory(){
+    this.historyTracker--;
+    this.setState({
+      sortedColumnArr: this.history[this.historyTracker]
+    });
+  }
+
+  goToStart(){
+    this.historyTracker = 0;
+    this.setState({
+      sortedColumnArr: this.history[this.historyTracker]
+    });
+  }
+
+  clearContent(){
+    this.setState({
+      columnArr: [],
+      sortedColumnArr: []
+    });
+    this.history = [];
+    this.historyTracker = 0;
+  }
+
   render () {
     
     return (
       <div className="App">
-        <Navbar updateColumnArr={this.handleAddColumn} updateBoxArr={this.handleAddBox} boxArr={this.state.boxArr} columnArr={this.state.columnArr} bubbleSort={this.bubbleSort}/>
+        <Navbar updateColumnArr={this.handleAddColumn} updateBoxArr={this.handleAddBox} boxArr={this.state.boxArr} columnArr={this.state.columnArr} bubbleSort={this.bubbleSort} clearContent={this.clearContent}/>
         <div className="algo-viz-content">
           <div className="algo-viz-content-unsorted">
             {this.state.columnArr.map((col, index) => {
@@ -88,11 +140,19 @@ class App extends React.Component {
             })}
           </div>
           <div className="algo-viz-content-sorted">
-            {this.state.sortedColumnArr.map((col, index) => {
-              return (
-                <VizColumn key={index} index={index} column={this.state.sortedColumnArr[index]} onAddBox={this.onAddBox}/>
-              );
-            })}
+            <div className="sorted-columns">
+              {this.state.sortedColumnArr.map((col, index) => {
+                return (
+                  <VizColumn key={index + 'sorted'} index={index} column={this.state.sortedColumnArr[index]}/>
+                );
+              })}
+            </div>
+            <div className="algo-history-buttons">
+              <button className="history-button" style={{fontWeight: `bold`}} disabled={this.historyTracker === 0} onClick={this.goToStart}>START</button>
+              <button className="history-button" disabled={this.historyTracker === 0} onClick={this.decrementHistory}><FontAwesomeIcon icon={faArrowLeft}></FontAwesomeIcon></button>
+              <button className="history-button" disabled={this.historyTracker === this.history.length - 1 || this.history.length === 0} onClick={this.incrementHistory}><FontAwesomeIcon icon={faArrowRight}></FontAwesomeIcon></button>
+              <button className="history-button" style={{fontWeight: `bold`}} disabled={this.historyTracker === this.history.length - 1 || this.history.length === 0} onClick={this.goToEnd}>END</button>
+            </div>
           </div>
         </div>
       </div>

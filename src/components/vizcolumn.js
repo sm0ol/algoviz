@@ -55,7 +55,6 @@ class VizColumn extends React.Component {
         return (
             <div className="algo-viz-column-container">
                 <div className="algo-viz-column">
-                    {console.log('Rendering these boxes: ', this.state.boxArr)}
                     {this.state.boxArr.map(item => {
                         return (
                             <VizBox key={item}/>
