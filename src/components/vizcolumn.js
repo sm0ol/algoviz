@@ -7,16 +7,34 @@ class VizColumn extends React.Component {
         super(props);
 
         this.state = {
-            boxArr: [1]
+            boxArr: props.column.boxes
+            // boxArr: [1]
         }
 
         this.addColumnBox = this.addColumnBox.bind(this);
         this.subtractColumnBox = this.subtractColumnBox.bind(this);
     }
 
+    //TODO: Really need to get these working in order to avoid UNSAFE_componentWillReceiveProps
+    // componentDidUpdate(prevProps, prevState){
+    //     if(prevState.boxArr !== this.state.boxArr){
+    //         let boxArr = this.state.boxArr;
+    //         this.setState({boxArr});
+    //     }
+    // }
+
+    // static getDerivedStateFromProps(props, state) {
+    //     console.log(`TCL: VizColumn -> getDerivedStateFromProps -> state`, state)
+    //     console.log(`TCL: VizColumn -> getDerivedStateFromProps -> props`, props)
+    //     if(props.boxArr !== state.boxArr){
+    //         let boxArr = state.boxArr;
+    //         return {boxArr: props.boxArr}
+    //     } else return null;
+    // }
+
     componentWillReceiveProps(nextProps) {
         this.setState({ boxArr: nextProps.column.boxes });  
-      }
+    }
     
     addColumnBox(){
         this.state.boxArr.push(this.state.boxArr.length + 1);

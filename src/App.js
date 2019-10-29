@@ -10,7 +10,8 @@ class App extends React.Component {
     super(props);
 
     this.state = {
-      columnArr: []
+      columnArr: [],
+      sortedColumnArr: []
     }
 
     this.onAddBox = this.onAddBox.bind(this);
@@ -52,8 +53,8 @@ class App extends React.Component {
     }
 
     this.setState({
-      columnArr: cols
-    });
+      sortedColumnArr: cols
+    }, () => console.log(this.state));
   }
 
   switchColumns(col1, col2){
@@ -79,11 +80,20 @@ class App extends React.Component {
       <div className="App">
         <Navbar updateColumnArr={this.handleAddColumn} updateBoxArr={this.handleAddBox} boxArr={this.state.boxArr} columnArr={this.state.columnArr} bubbleSort={this.bubbleSort}/>
         <div className="algo-viz-content">
-          {this.state.columnArr.map((col, index) => {
-            return (
-              <VizColumn key={index} index={index} column={this.state.columnArr[index]} onAddBox={this.onAddBox}/>
-            );
-          })}
+          <div className="algo-viz-content-unsorted">
+            {this.state.columnArr.map((col, index) => {
+              return (
+                <VizColumn key={index} index={index} column={this.state.columnArr[index]} onAddBox={this.onAddBox}/>
+              );
+            })}
+          </div>
+          <div className="algo-viz-content-sorted">
+            {this.state.sortedColumnArr.map((col, index) => {
+              return (
+                <VizColumn key={index} index={index} column={this.state.sortedColumnArr[index]} onAddBox={this.onAddBox}/>
+              );
+            })}
+          </div>
         </div>
       </div>
     );
