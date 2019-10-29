@@ -10,13 +10,13 @@ class App extends React.Component {
     super(props);
 
     this.state = {
-      // boxArr: [],
       columnArr: []
     }
 
     this.onAddBox = this.onAddBox.bind(this);
     this.handleAddColumn = this.handleAddColumn.bind(this);
     this.bubbleSort = this.bubbleSort.bind(this);
+    this.switchColumns = this.switchColumns.bind(this);
   }
 
   onAddBox(colIndex, boxAmount) {
@@ -29,49 +29,48 @@ class App extends React.Component {
 
     this.setState({
       columnArr: cols
-    }, () => console.log('Updated columnArr: ', this.state.columnArr));
+    });
   }
 
   handleAddColumn(columnArr) {
     this.setState({
       columnArr: columnArr
-    }, () => console.log('Updated columnArr: ', this.state.columnArr));
+    });
   }
 
   bubbleSort(){
-    let sorted = false;
-    // for(var i = 0; i < this.state.columnArr.length; i++){
-    //   console.log(this.state.columnArr[i]);
-    // }
-    for(var i = 1; i < this.state.columnArr.length; i++){
-      console.log(this.state.columnArr[i]);
-      let firstItem = this.state.columnArr[i];
-      let secondItem = this.state.columnArr[i - 1];
-      // let secondItem = (this.state.columnArr[i - 1]) ? this.state.columnArr[i - 1] : break;
-
-      if(firstItem.boxes < secondItem.boxes){
-        let temp = firstItem;
-        firstItem = secondItem;
-        secondItem = temp;
-        sorted = false;
+    let cols = [...this.state.columnArr];
+    let len = cols.length;
+    for(let i = 0; i < len - 1; i++){
+      for(let j = 0; j < len - 1; j++){
+        if(cols[j].boxes.length > cols[j + 1].boxes.length) {
+          let tmp = cols[j];
+          cols[j] = cols[j + 1];
+          cols[j + 1] = tmp;
+        }
       }
     }
-    // while(!sorted){
-    //   sorted = true;
-    //   for(var i = 1; i < this.state.columnArr.length; i++){
-    //     console.log(this.state.columnArr[i]);
-    //     let firstItem = this.state.columnArr[i];
-    //     let secondItem = this.state.columnArr[i - 1];
-    //     // let secondItem = (this.state.columnArr[i - 1]) ? this.state.columnArr[i - 1] : break;
 
-    //     if(firstItem.boxes < secondItem.boxes){
-    //       let temp = firstItem;
-    //       firstItem = secondItem;
-    //       secondItem = temp;
-    //       sorted = false;
-    //     }
-    //   }
-    // }
+    this.setState({
+      columnArr: cols
+    });
+  }
+
+  switchColumns(col1, col2){
+    let cols = [...this.state.columnArr];
+    let temp1 = cols[col1];
+    let temp2 = cols[col2];
+    let colHolder = temp1;
+
+    temp1 = temp2;
+    temp2 = colHolder;
+
+    cols[col1] = temp1;
+    cols[col2] = temp2;
+
+    this.setState({
+      columnArr: cols
+    });
   }
 
   render () {
