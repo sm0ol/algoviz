@@ -2,10 +2,19 @@
     border: none;
     background-color: transparent;
     cursor: pointer;
+    transition: all .2s ease-in-out;
+    margin-bottom: 5px;
+    margin-right: 20px;
+    cursor: pointer;
+}
+
+.history-button:hover {
+    transform: scale(1.5);    
 }
 
 .history-button:disabled {
     cursor: auto;
+    transform: none;
 }
 
 .sorted-columns {
