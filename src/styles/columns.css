@@ -1,0 +1,58 @@
+.history-button {
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+}
+
+.history-button:disabled {
+    cursor: auto;
+}
+
+.sorted-columns {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+}
+
+.sorted-columns button {
+    display: none;  
+}
+
+.algo-viz-column-container {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 5px;
+}
+
+.algo-viz-column {
+    width: 50px;
+    margin: 5px;
+    border-bottom: 1px solid black;
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+    justify-content: center;
+}
+
+.algo-column-button {
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.algo-viz-square {
+    height: 40px;
+    width: 40px;
+    margin: 5px;
+    border: 1px solid black;
+    background-color: #6e9196;
+    animation: glowing 2000ms normal;
+}
+
+@keyframes glowing {
+    0% { box-shadow: 0 0 -5px white; }
+    40% { box-shadow: 0 0 10px white; }
+    60% { box-shadow: 0 0 10px white; }
+    100% { box-shadow: 0 0 -5px white; }
+}

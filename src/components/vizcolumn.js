@@ -1,5 +1,6 @@
 import React from 'react';
 import VizBox from './vizbox';
+import '../styles/columns.css';
 
 
 class VizColumn extends React.Component {

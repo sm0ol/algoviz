@@ -1,7 +1,7 @@
 import React from 'react';
 import Navbar from './components/navbar';
 import VizColumn from './components/vizcolumn';
-import './App.css';
+import './styles/App.css';
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowLeft, faArrowRight } from '@fortawesome/free-solid-svg-icons'
