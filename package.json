@@ -6,15 +6,24 @@
     "@fortawesome/fontawesome-svg-core": "^1.2.25",
     "@fortawesome/free-solid-svg-icons": "^5.11.2",
     "@fortawesome/react-fontawesome": "^0.1.7",
+    "enzyme": "^3.10.0",
+    "jest": "^24.9.0",
     "react": "^16.11.0",
     "react-dom": "^16.11.0",
     "react-scripts": "3.2.0",
     "react-sticky": "^6.0.3"
   },
+  "babel": {
+    "presets": [
+      "@babel/preset-env",
+      "@babel/react"
+    ]
+  },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "jest --verbose",
+    "test:coverage": "jest --verbose --coverage",
     "eject": "react-scripts eject",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build"
@@ -34,8 +43,28 @@
       "last 1 safari version"
     ]
   },
+  "jest": {
+    "scriptPreprocessor": "<rootDir>/node_modules/babel-jest",
+    "unmockedModulePathPatterns": [
+      "<rootDir>/node_modules/react",
+      "<rootDir>/node_modules/react-dom",
+      "<rootDir>/node_modules/react-addons-test-utils",
+      "<rootDir>/node_modules/fbjs"
+    ],
+    "moduleNameMapper": {
+      "\\.(css|less|scss|sass)$": "identity-obj-proxy"
+    },
+    "setupTestFrameworkScriptFile": "<rootDir>/src/tests/setupFile.js"
+  },
   "devDependencies": {
-    "gh-pages": "^2.1.1"
+    "@babel/preset-env": "^7.6.3",
+    "babel-jest": "^24.9.0",
+    "enzyme-adapter-react-16": "^1.15.1",
+    "gh-pages": "^2.1.1",
+    "identity-obj-proxy": "^3.0.0",
+    "jest-cli": "^24.9.0",
+    "react-addons-test-utils": "^15.6.2",
+    "sinon": "^7.5.0"
   },
   "homepage": "http://srobdev.github.io/algoviz"
 }

@@ -5,22 +5,10 @@ import '../styles/navbar.css'
 class Navbar extends React.Component {
     constructor(props){
         super(props);
-
-        this.addBox = this.addBox.bind(this);
-        this.subtractBox = this.subtractBox.bind(this);
+        
         this.addColumn = this.addColumn.bind(this);
         this.bubbleSort = this.bubbleSort.bind(this);
         this.clearContent = this.clearContent.bind(this);
-    }
-
-    addBox(e){
-        this.props.boxArr.push(this.props.boxArr.length);
-        this.props.updateBoxArr(this.props.boxArr);
-    }
-
-    subtractBox(e){
-        this.props.boxArr.splice(this.props.boxArr.length - 1, 1);
-        this.props.updateBoxArr(this.props.boxArr);
     }
 
     addColumn(e){
