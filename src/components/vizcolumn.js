@@ -12,7 +12,7 @@ class VizColumn extends React.Component {
         this.state = {
             boxArr: props.column.boxes
         }
-
+        
         this.addColumnBox = this.addColumnBox.bind(this);
         this.subtractColumnBox = this.subtractColumnBox.bind(this);
         this.removeIndividualColumn = this.removeIndividualColumn.bind(this);
