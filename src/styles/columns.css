@@ -41,6 +41,14 @@
     font-weight: bold;
 }
 
+.button-icon {
+    transition: all .2s ease-in-out;
+}
+
+.button-icon:hover {
+    transform: scale(1.5);    
+}
+
 .algo-viz-square {
     height: 40px;
     width: 40px;

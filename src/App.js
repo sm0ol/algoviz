@@ -29,6 +29,7 @@ class App extends React.Component {
     this.clearContent = this.clearContent.bind(this);
     this.goToStart = this.goToStart.bind(this);
     this.goToEnd = this.goToEnd.bind(this);
+    this.removeIndividualColumn = this.removeIndividualColumn.bind(this);
   }
 
   onAddBox(colIndex, boxAmount) {
@@ -126,6 +127,14 @@ class App extends React.Component {
     this.historyTracker = 0;
   }
 
+  removeIndividualColumn(index){
+    let cols = [...this.state.columnArr];
+    cols.splice(index, 1);
+    this.setState({
+      columnArr: cols
+    });
+  }
+
   render () {
     
     return (
@@ -135,7 +144,7 @@ class App extends React.Component {
           <div className="algo-viz-content-unsorted">
             {this.state.columnArr.map((col, index) => {
               return (
-                <VizColumn key={index} index={index} column={this.state.columnArr[index]} onAddBox={this.onAddBox}/>
+                <VizColumn key={index} index={index} column={this.state.columnArr[index]} onAddBox={this.onAddBox} removeIndividualColumn={this.removeIndividualColumn}/>
               );
             })}
           </div>

@@ -1,6 +1,8 @@
 import React from 'react';
 import VizBox from './vizbox';
 import '../styles/columns.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faTimes } from '@fortawesome/free-solid-svg-icons'
 
 
 class VizColumn extends React.Component {
@@ -9,11 +11,11 @@ class VizColumn extends React.Component {
 
         this.state = {
             boxArr: props.column.boxes
-            // boxArr: [1]
         }
 
         this.addColumnBox = this.addColumnBox.bind(this);
         this.subtractColumnBox = this.subtractColumnBox.bind(this);
+        this.removeIndividualColumn = this.removeIndividualColumn.bind(this);
     }
 
     //TODO: Really need to get these working in order to avoid UNSAFE_componentWillReceiveProps
@@ -52,9 +54,16 @@ class VizColumn extends React.Component {
         });
     }
 
+    removeIndividualColumn(){
+        this.props.removeIndividualColumn(this.props.index);
+    }
+
     render() {
         return (
             <div className="algo-viz-column-container">
+                <button className="algo-column-button" onClick={this.removeIndividualColumn}>
+                    <FontAwesomeIcon className="button-icon" icon={faTimes}></FontAwesomeIcon>
+                </button>
                 <div className="algo-viz-column">
                     {this.state.boxArr.map(item => {
                         return (
@@ -68,8 +77,8 @@ class VizColumn extends React.Component {
                     alignItems: `center`,
                     justifyContent: `center`
                 }}>
-                    <button className="algo-column-button" onClick={this.addColumnBox}>+</button>
-                    <button className="algo-column-button" onClick={this.subtractColumnBox}>-</button>
+                    <button className="algo-column-button button-icon" onClick={this.addColumnBox}>+</button>
+                    <button className="algo-column-button button-icon" onClick={this.subtractColumnBox}>-</button>
                 </div>
             </div>
         )
