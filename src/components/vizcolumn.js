@@ -64,10 +64,11 @@ class VizColumn extends React.Component {
                 <button className="algo-column-button" onClick={this.removeIndividualColumn}>
                     <FontAwesomeIcon className="button-icon" icon={faTimes}></FontAwesomeIcon>
                 </button>
-                <div className="algo-viz-column">
+                <div className={this.props.active ? "algo-viz-column active-column" : "algo-viz-column"}>
+                {/* <div className="algo-viz-column"> */}
                     {this.state.boxArr.map(item => {
                         return (
-                            <VizBox key={item}/>
+                            <VizBox key={item} active={this.props.active}/>
                         )
                     })}
                 </div>

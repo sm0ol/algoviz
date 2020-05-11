@@ -23,13 +23,13 @@ class App extends React.Component {
     this.onAddBox = this.onAddBox.bind(this);
     this.handleAddColumn = this.handleAddColumn.bind(this);
     this.bubbleSort = this.bubbleSort.bind(this);
-    this.switchColumns = this.switchColumns.bind(this);
     this.incrementHistory = this.incrementHistory.bind(this);
     this.decrementHistory = this.decrementHistory.bind(this);
     this.clearContent = this.clearContent.bind(this);
     this.goToStart = this.goToStart.bind(this);
     this.goToEnd = this.goToEnd.bind(this);
     this.removeIndividualColumn = this.removeIndividualColumn.bind(this);
+    this.clearSortedContent = this.clearSortedContent.bind(this);
   }
 
   onAddBox(colIndex, boxAmount) {
@@ -39,6 +39,10 @@ class App extends React.Component {
     colItem.boxes = boxAmount;
 
     cols[colIndex] = colItem;
+
+    if(this.state.sortedColumnArr.length > 0) {
+      this.clearSortedContent();
+    }
 
     this.setState({
       columnArr: cols
@@ -54,6 +58,7 @@ class App extends React.Component {
   bubbleSort(){
     let cols = [...this.state.columnArr];
     let len = cols.length;
+    let prevHistory = [...this.history];
     this.history = [];
     this.history.push([...cols]);
     for(let i = 0; i < len - 1; i++){
@@ -67,33 +72,17 @@ class App extends React.Component {
       }
     }
 
-    this.historyTracker = this.history.length - 1;
-    this.setState({
-      sortedColumnArr: [...cols]
-    });
-  }
+    if(prevHistory.length === 0){
+      this.historyTracker = this.history.length - 1;
+    }
 
-  switchColumns(col1, col2){
-    let cols = [...this.state.columnArr];
-    let temp1 = cols[col1];
-    let temp2 = cols[col2];
-    let colHolder = temp1;
-    
-    temp1 = temp2;
-    temp2 = colHolder;
-
-    cols[col1] = temp1;
-    cols[col2] = temp2;
-
-    this.setState({
-      columnArr: cols
-    });
+    this.goToEnd();
   }
 
   incrementHistory(){
     this.historyTracker++;
     this.setState({
-      sortedColumnArr: this.history[this.historyTracker]
+      sortedColumnArr: [...this.history[this.historyTracker]]
     });
   }
 
@@ -127,6 +116,14 @@ class App extends React.Component {
     this.historyTracker = 0;
   }
 
+  clearSortedContent(){
+    this.setState({
+      sortedColumnArr: []
+    });
+    this.history = [];
+    this.historyTracker = 0;
+  }
+
   removeIndividualColumn(index){
     let cols = [...this.state.columnArr];
     cols.splice(index, 1);
@@ -152,7 +149,7 @@ class App extends React.Component {
             <div className="sorted-columns">
               {this.state.sortedColumnArr.map((col, index) => {
                 return (
-                  <VizColumn key={index + 'sorted'} index={index} column={this.state.sortedColumnArr[index]}/>
+                  <VizColumn key={index + 'sorted'} index={index} column={this.state.sortedColumnArr[index]} active={this.history[this.historyTracker][index].active}/>
                 );
               })}
             </div>

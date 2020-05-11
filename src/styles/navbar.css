@@ -3,7 +3,8 @@
     top: 0;
     width: 100%;
     background-color: #282c34;
-    min-height: 5vh;
+    /* min-height: 5vh; */
+    height: 50px;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -26,4 +27,17 @@
     box-shadow: inset 0px 0px 18px 0px rgba(0,0,0,0.75);
     transition: box-shadow 0.1s ease-in-out;
     cursor: pointer;
+}
+
+.algo-navbar-select {
+    border: none;
+    margin: 5px;
+    width: auto;
+    height: 40px;
+    background-color: #6e9196;
+    border-radius: 3px;
+}
+
+.algo-navbar-button:disabled {
+    box-shadow: none;
 }

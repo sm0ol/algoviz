@@ -43,6 +43,10 @@
     justify-content: center;
 }
 
+.active-column {
+    border-bottom: 3px solid red;
+}
+
 .algo-column-button {
     border: none;
     background-color: transparent;
@@ -64,7 +68,11 @@
     margin: 5px;
     border: 1px solid black;
     background-color: #6e9196;
-    animation: glowing 2000ms normal;
+    /* animation: glowing 2000ms normal; */
+}
+
+.active-square {
+    background-color: red;
 }
 
 @keyframes glowing {
