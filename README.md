@@ -15,5 +15,4 @@ Add columns to the "unsorted" side of the app by using the `Add Column` button. 
 ## Future Functionality
  - Better visualization for the algorithm steps
  - Dropdown with multiple algorithm selections 
- - Easier/more efficient column building (such as removing specific columns instead of the most recent)
  - Large dataset tab with a much bigger, randomized dataset
