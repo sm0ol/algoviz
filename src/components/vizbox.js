@@ -4,7 +4,6 @@ import React from 'react';
 class VizBox extends React.Component {
     constructor(props){
         super(props);
-        console.log('TCL: Props in box', props);
     }
 
     render() {
